@@ -1,0 +1,12 @@
+
+.page-footer {
+   margin-top: 10px;
+	background: #343A40;
+	color: #9A9DA0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

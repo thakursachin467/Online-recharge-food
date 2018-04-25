@@ -6,7 +6,9 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var database= require('./database/connect');
 var users= require('./routes/user');
- var app= express();
+var items= require('./routes/items');
+var path = require('path');
+var app= express();
 
  //set the port here
  var port= process.env.PORT || 3000;
@@ -47,9 +49,14 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
 //user register and login path
 users(app);
+//items added and all operations are handled here
+//admin(app);
+
+//all item related properties are here like show add to cart etc
+items(app);
 
 app.get('/', function (req, res) {
-   res.render('home');
+   
 });
 
 

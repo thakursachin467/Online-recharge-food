@@ -18,3 +18,7 @@ users:{
 }
 
 });
+
+var card= mongoose.model('card',cardSchema);
+
+module.exports = card;
