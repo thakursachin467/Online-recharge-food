@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var users= require('./users');
 var Schema = mongoose.Schema;
-ObjectId=schema.Types.ObjectId
+ObjectId=Schema.Types.ObjectId
 
 var cardSchema = new Schema ({
   cardno:{

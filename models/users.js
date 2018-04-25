@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var items= require('./items');
 var Schema = mongoose.Schema;
-ObjectId=schema.Types.ObjectId
+ObjectId=Schema.Types.ObjectId
 
 var usersSchema = new Schema ({
   email : {
