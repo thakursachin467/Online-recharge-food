@@ -6,10 +6,21 @@
      <div class="collapse navbar-collapse" id="collapsibleNavbar">
        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
        </ul>
+       {{#if userid}}
+
+       
+       <form class="form-inline my-2 my-lg-0">
+         <input class="form-control mr-sm-2" type="search" placeholder="Search">
+         <a href="/logout" class="btn btn-primary" >LOGOUT</a></button>
+
+        </form>
+
+       {{ else }}
        <form class="form-inline my-2 my-lg-0">
          <input class="form-control mr-sm-2" type="search" placeholder="Search">
          <a href="/login" class="btn btn-primary" >LOGIN</a></button>
 
         </form>
+        {{/if}}
      </div>
 </nav>

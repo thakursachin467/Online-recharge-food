@@ -17,6 +17,7 @@ module.exports= function(app,passport){
 
         app.get('/dashboard',(req,res)=>{
           res.render('users/dashboard');
+
         })
 
         app.get('/register',(req,res)=>{
@@ -36,8 +37,13 @@ module.exports= function(app,passport){
 
         //user will be validated and added to database using the mongoose models and bcryptjs for hashing
         app.post('/register',(req,res)=>{
-              
+
               let errors=[];
+              var Admin= false;
+              console.log(req.body.Admin);
+              if(req.body.Admin === 'imadmin') {
+                Admin =true;
+              }
               if(req.body.password!= req.body.password2) {
                 errors.push({text:'Your passwords did not match'});
               }
@@ -66,7 +72,8 @@ module.exports= function(app,passport){
                         email:req.body.email,
                         firstname:req.body.firstname,
                         lastname:req.body.lastname,
-                        password:req.body.password
+                        password:req.body.password,
+                        isAdmin:Admin
                       });
                       bcrypt.genSalt(10,function(err, salt) {
                       bcrypt.hash(user.password, salt, function(err, hash) {
@@ -97,6 +104,15 @@ module.exports= function(app,passport){
 
 });
 //post register req ends here
+
+
+
+app.get('/logout',(req,res)=>{
+      req.logout();
+    //  req.flash('success_msg','you are logout');
+      res.redirect('/');
+
+});
 
 
 

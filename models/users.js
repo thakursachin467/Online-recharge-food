@@ -21,6 +21,10 @@ var usersSchema = new Schema ({
 items:{
   type:ObjectId,
   ref:'items'
+},
+isAdmin :{
+  type: Boolean,
+  default: false
 }
 
 });

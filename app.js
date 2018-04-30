@@ -1,5 +1,6 @@
 var express = require('express');
 var passport = require('passport');
+var passport1 = require('passport');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -59,6 +60,8 @@ users(app,passport);
 
 //all item related properties are here like show add to cart etc
 items(app);
+
+
 
 
 

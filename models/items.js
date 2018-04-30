@@ -18,6 +18,10 @@ var mongoose = require('mongoose');
       ItemProvider :{
         type:String,
         require:true
+      },
+      ItemAvailable :{
+        type:Boolean,
+        default:true
       }
 
 
