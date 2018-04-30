@@ -1,38 +1,53 @@
 var users= require('../models/users');
 var bcrypt = require('bcryptjs');
-module.exports= function(app){
+var bodyParser = require('body-parser');
 
-        app.get('/login',(req,res)=>{
+
+
+module.exports= function(app,passport){
+
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: false }));
+  // parse application/json
+  app.use(bodyParser.json());
+
+      app.get('/login',(req,res)=>{
           res.render('users/login');
         });
+
+        app.get('/dashboard',(req,res)=>{
+          res.render('users/dashboard');
+        })
 
         app.get('/register',(req,res)=>{
             res.render('users/register');
         });
 
 
-        app.post('/login',(req,res)=>{
-              passport.authenticate('local',{
-                sucessRedirect: '/dashboard',
-                failureRedirect:'/login'
-              })(req,res,next);
 
-        });
+
+        app.post('/login',
+            passport.authenticate('local', {
+              successRedirect: '/dashboard',
+              failureRedirect: '/login',
+              failureFlash: true })
+);
 
 
         //user will be validated and added to database using the mongoose models and bcryptjs for hashing
         app.post('/register',(req,res)=>{
+              
               let errors=[];
-              if(req.user.password!= req.user.password2) {
+              if(req.body.password!= req.body.password2) {
                 errors.push({text:'Your passwords did not match'});
               }
-              if(req.user.password.length<4){
+              if(req.body.password.length<4){
                 errors.push({text:'Password should be more then 4 characters'});
               }
-              if(errors>0){
+              if(errors.length>0){
                 res.render('users/register',{
                   errors:errors,
-                  name:req.body.name,
+                  firstname:req.body.firstname,
                   lastname:req.body.lastname,
                   email:req.body.email,
                   password:req.body.password,
@@ -62,7 +77,7 @@ module.exports= function(app){
                               user.password= hash;
                               user.save()
                               .then(()=>{
-                                  req.flash('success_msg','Your account sucessfully created');
+                                  req.flash('success_msg','Your account sucessfully created,please login');
                                   res.redirect('/login');
                               });
                           }
@@ -78,8 +93,13 @@ module.exports= function(app){
         });
 
 }
+
+
 });
 //post register req ends here
+
+
+
 
 
 }

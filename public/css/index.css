@@ -1,3 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+html ,body {
+	height: 100%;
+	margin:0;
+  font-size:16px;
+  font-family:"Lato", sans-serif;
+  font-weight:400;
+  line-height:1.8em;
+  color:#666;
+	overflow-x: hidden;
+}
+
+.mydiv {
+
+  height: 100%;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+.container1 {
+	height: 100%;
+	margin-top: 40px;
+}
 
 .page-footer {
    margin-top: 10px;
@@ -5,8 +34,181 @@
 	color: #9A9DA0;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+.secondnav {
+
+	color: solid white;
+}
+
+
+.image-1 {
+   position: relative;
+
+
+}
+
+.image-1 button {
+   position: absolute;
+   top: 400px;
+   left: 200px;
+   border-radius: 12px;
+   background-color: red;
+
+}
+
+.image-1 p{
+	position: absolute;
+	top: 100px;
+   left: 40px;
+   visibility: hidden;
+   font-size: 30px;
+   color: Yellow;
+
+}
+
+
+.image-1 a img {
+	cursor: default;
+}
+
+
+.image-2 {
+	border: 1px solid black;
+	box-shadow: 2px 3px 	#808080;
+}
+
+#btnSearch,
+#btnClear{
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+@media only screen and (max-width: 465px) {
+   .image-1 button {
+   position: absolute;
+   top: 330px;
+   left: 200px;
+
+}
+
+}
+
+
+
+@media only screen and (min-width: 1275px) and (max-width: 1422px) {
+
+   .image-1 button {
+   position: absolute;
+   top: 350px;
+   left: 200px;
+
+}
+
+}
+
+@media only screen and (min-width: 1117px) and (max-width: 1275px) {
+
+   .image-1 button {
+   position: absolute;
+   top: 300px;
+   left: 200px;
+
+}
+
+}
+
+@media only screen and (min-width: 970px) and (max-width: 1117px) {
+
+   .image-1 button {
+   position: absolute;
+   top: 250px;
+   left: 190px;
+
+}
+
+}
+
+@media only screen and (min-width: 896px) and (max-width: 970px) {
+
+   .image-1 button {
+   position: absolute;
+   top: 220px;
+   left: 120px;
+
+}
+
+}
+
+@media only screen and (min-width: 465px) and (max-width: 896px) {
+
+   .image-1 button {
+   visibility: hidden;
+
+}
+
+}
+
+
+.pimg1, .pimg2, .pimg3 , .pimg4{
+  position:relative;
+  opacity:0.70;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+
+  /*
+    fixed = parallax
+    scroll = normal
+  */
+  background-attachment:fixed;
+}
+
+
+
+
+
+.pimg1 video {
+	min-width: 100%;
+	min-height: 100%;
+	opacity: 0.9;
+}
+
+
+.section{
+  text-align:center;
+  padding:50px 80px;
+}
+
+.section-light{
+  background-color:#f4f4f4;
+  color:#666;
+}
+
+
+
+.ptext{
+  position:absolute;
+  top:30%;
+  width:100%;
+  text-align:center;
+  color:#000;
+  font-size:27px;
+  letter-spacing:8px;
+  text-transform:uppercase;
+}
+
+.ptext .border{
+  background-color:#111;
+  color:#fff;
+  padding:20px;
+}
+
+.ptext .border.trans{
+  background-color:transparent;
+}
+
+@media(max-width:568px){
+  .pimg1, .pimg2, .pimg3{
+    background-attachment:scroll;
+  }
 }

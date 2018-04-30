@@ -7,6 +7,7 @@ var flash = require('connect-flash');
 var database= require('./database/connect');
 var users= require('./routes/user');
 var items= require('./routes/items');
+var pasportConfig= require('./config/passport');
 var path = require('path');
 var app= express();
 
@@ -48,20 +49,28 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
 
 //user register and login path
-users(app);
+users(app,passport);
 //items added and all operations are handled here
 //admin(app);
+
+
+
+
 
 //all item related properties are here like show add to cart etc
 items(app);
 
+
+
+
 app.get('/', function (req, res) {
-   
+    res.sendFile(path.join(__dirname,"online","index.html"));
 });
 
 
 //connection establiahed to database
 database.databaseconnectionusers();
+pasportConfig(passport);
 
 //started a server here
  app.listen(port,()=>{

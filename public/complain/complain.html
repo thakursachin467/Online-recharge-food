@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Complain Form</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	<style type="text/css">
+		.middle {
+			width: 50%;
+			margin: auto;
+			border: 2px solid black;
+			margin-top: 60px;
+			background-color: white;
+			box-shadow: 5px 8px grey;
+		}
+
+		.middle-2 {
+			background-color: #42f4f4;
+		}
+
+
+		.alert {
+			border: 2px ;
+			margin-left: 10px;
+			margin-right: 10px;
+			padding: 10px;
+			background-color: 	#7CFC00;
+			text-align: center;
+			margin-bottom: 10px;
+			display: none;
+		}
+	</style>
+</head>
+<body bgcolor="sky blue">
+<div class="middle">
+
+<div class="row">
+	<div class="row middle-2">
+        <div class=" col s12">
+          <h1 align="center">Complain Form</h1>
+          <h4>How can we help you today?</h4>
+        </div>
+      </div>
+      <div class="alert">
+      	Your complain has been sent
+
+      </div>
+    <form class="col s12" id="complainform">
+      <div class="row">
+        <div class="input-field col s6">
+          <input  placeholder="FirstName" id= "first_name" type="text" >
+
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" placeholder="Last Name" type="text" >
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" placeholder="Email" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" placeholder="input your complain here" class="materialize-textarea"></textarea>
+
+        </div>
+      </div>
+
+
+     <button class="btn waves-effect waves-light" id="button-1" type="submit" name="action">Submit
+    <i class="material-icons right">send</i>
+  </button>
+    </form>
+  </div>
+  </div>
+   <script type="text/javascript" src="complain.js" ></script>
+
+</body>
+</html>
