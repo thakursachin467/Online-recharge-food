@@ -1,15 +1,28 @@
-
+html {
+    position: relative;
+    min-height: 100%;
+}
 .page-footer {
    margin-top: 10px;
 	background: #343A40;
 	color: #9A9DA0;
 }
-
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
+.widget {
+  background-color: orange;
+  height: 100px;
 }
+
+.link
+{
+   color:white;
+   text-decoration: none;
+   background-color: none;
+}
+
+.sidebar {
+  margin-left: 0px;
+}
+
 
 div.my-login-page {
 	background-color: #f7f9fb;
