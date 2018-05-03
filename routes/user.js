@@ -2,8 +2,6 @@ var users= require('../models/users');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 
-
-
 module.exports= function(app,passport){
 
   // parse application/x-www-form-urlencoded

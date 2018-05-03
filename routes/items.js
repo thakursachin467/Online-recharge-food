@@ -9,7 +9,7 @@ module.exports= function(app) {
       });
 
       //add an item to cart
-      app.post('/item/add/:id',(req,res)=>{
+      app.put('/item/edit/:id',(req,res)=>{
 
 
       });

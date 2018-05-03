@@ -7,6 +7,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var database= require('./database/connect');
 var users= require('./routes/user');
+var admin= require('./routes/admin');
 var items= require('./routes/items');
 var pasportConfig= require('./config/passport');
 var path = require('path');
@@ -60,6 +61,9 @@ users(app,passport);
 
 //all item related properties are here like show add to cart etc
 items(app);
+
+
+admin(app);
 
 
 
