@@ -1,5 +1,6 @@
 var items= require('../models/items');
 var cart= require('../models/cart');
+var auth= require('../helpers/auth');
 
 module.exports= function(app) {
 

@@ -12,13 +12,20 @@ var items= require('./routes/items');
 var pasportConfig= require('./config/passport');
 var path = require('path');
 var methodOverride = require('method-override');
+const {limit,formatdate}=require('./helpers/hbs');
 var app= express();
 
+console.log(limit);
  //set the port here
  var port= process.env.PORT || 3000;
 app.use('/assests',express.static(__dirname +'/public'));
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  helpers:{
+  limit:limit,
+  formatdate:formatdate
+},
+defaultLayout: 'main'}));
  app.set('view engine', 'handlebars');
 
  // parse application/json

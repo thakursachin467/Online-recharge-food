@@ -1,6 +1,8 @@
 var users= require('../models/users');
+var items= require('../models/items');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
+var auth= require('../helpers/auth');
 
 module.exports= function(app,passport){
 
@@ -14,7 +16,23 @@ module.exports= function(app,passport){
         });
 
         app.get('/dashboard',(req,res)=>{
-          res.render('users/dashboard');
+          users.find({})
+          .sort({'_id':-1})
+          .then((data)=>{
+            items.find({})
+            .then((data1)=>{
+              res.render('users/dashboard',{
+                users:data.slice(0,5),
+                items:data1.length,
+                userstotal:data.length,
+                usersall:data,
+                itemsall:data1
+              });
+            })
+          })
+
+
+
 
         })
 
@@ -111,6 +129,11 @@ app.get('/logout',(req,res)=>{
       res.redirect('/');
 
 });
+
+
+app.get('/cart',(req,res)=>{
+
+})
 
 
 

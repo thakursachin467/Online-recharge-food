@@ -2,6 +2,7 @@ var users= require('../models/users');
 var items= require('../models/items');
 var cards= require('../models/cards');
 var bodyParser = require('body-parser');
+var auth= require('../helpers/auth');
 
 module.exports = function(app){
 
@@ -15,12 +16,15 @@ module.exports = function(app){
           var itemName= req.body.itemname;
           var itemPrice= req.body.itemprice;
           var ItemProvider= req.body.Itemprovider;
-          var ItemAvailable= req.body.avalability;
           var description= req.body.description;
-          if(itemName.length==0 || itemPrice.length==0 || ItemProvider.length==0 || ItemAvailable.length==0 || description.length==0) {
-            req.flash('error_msg','All fields are mandatory');
+          if(req.body.avalability) {
+              var ItemAvailable= true;
           }
           else {
+            var ItemAvailable = false;
+          }
+
+
               items.findOne({itemName:req.body.itemname})
               .then((data)=>{
                 if(data) {
@@ -42,9 +46,20 @@ module.exports = function(app){
                     });
                 }
               });
-          }
+
   });
 
+  app.get('/admin/item',(req,res)=>{
+      items.find({})
+      .then((data)=>{
+        res.render('admin/item',{
+          data:data
+        });
+        console.log(data.length);
+      });
+
+
+  });
 
   app.get('/users/show/all',(req,res)=>{
           users.find({isAdmin:false})
