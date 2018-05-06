@@ -46,6 +46,19 @@ module.exports = function(app){
   });
 
 
+  app.get('/users/show/all',(req,res)=>{
+          users.find({isAdmin:false})
+          .then((data)=>{
+
+            res.render('admin/showuser',{
+              data:data
+            })
+          })
+
+
+  })
+
+
 
 
 }

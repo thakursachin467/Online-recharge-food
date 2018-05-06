@@ -11,6 +11,7 @@ var admin= require('./routes/admin');
 var items= require('./routes/items');
 var pasportConfig= require('./config/passport');
 var path = require('path');
+var methodOverride = require('method-override');
 var app= express();
 
  //set the port here
@@ -37,6 +38,9 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
  //passport middleware
  app.use(passport.initialize());
  app.use(passport.session());
+
+ //method override middleware
+ app.use(methodOverride('_method'));
 
 //global variables
  app.use(function(req,res,next) {
