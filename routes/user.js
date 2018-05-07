@@ -1,5 +1,6 @@
 var users= require('../models/users');
 var items= require('../models/items');
+var complain= require('../models/complain');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 var auth= require('../helpers/auth');
@@ -21,20 +22,24 @@ module.exports= function(app,passport){
           .then((data)=>{
             items.find({})
             .then((data1)=>{
-              res.render('users/dashboard',{
-                users:data.slice(0,5),
-                items:data1.length,
-                userstotal:data.length,
-                usersall:data,
-                itemsall:data1
+              complain.find({})
+              .then((complain)=>{
+                res.render('users/dashboard',{
+                  users:data.slice(0,5),
+                  items:data1.length,
+                  userstotal:data.length,
+                  usersall:data,
+                  itemsall:data1,
+                  complain:complain,
+                  complaintotal:complain.length
+                });
               });
-            })
-          })
+
+            });
+          });
+        });
 
 
-
-
-        })
 
         app.get('/register',(req,res)=>{
             res.render('users/register');
@@ -135,7 +140,26 @@ app.get('/cart',(req,res)=>{
 
 })
 
+app.post('/complain',(req,res)=>{
+      email:req.user.email;
+      firstname : req.user.firstname;
+      lastname:req.user.lastname;
+      complain:req.body.complain;
+      var complain= complain({
+          email:email,
+          firstname:firstname,
+          lastname:lastname,
+          complain:complain
+      });
 
+      complain.save()
+      .then(()=>{
+        req.flash('success_msg','Your complain sucessfully send');
+        res.redirect('/dashboard');
+      })
+
+
+});
 
 
 
