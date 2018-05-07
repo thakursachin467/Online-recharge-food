@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10">
-        <h1><i class="fa fa-street-view" style="font-size:36px"></i>Admin Dashboard <small>welcome {{userid.firstname}}</small></h1>
+        <h1><i class="fa fa-street-view" style="font-size:36px"></i>Admin Dashboard <br> <small class="ml-5">welcome {{userid.firstname}}</small></h1>
       </div>
       <div class="col-md-2">
         <div class="dropdown create">
@@ -37,7 +37,7 @@
             <i class="fa fa-street-view" style="font-size:36px"></i> Dashboard
           </a>
           <a  class="nav-link list-group-item" data-toggle="tab" href="#items"><i class="fa fa-cubes" style="font-size:36px"></i> Items <span class="badge badge-secondary">{{items}}</span></a>
-          <a class="nav-link list-group-item" data-toggle="tab" href="#complain"><i class="fa fa-comments" style="font-size:36px"></i> Complain <span class="badge badge-secondary">33</span></a>
+          <a class="nav-link list-group-item" data-toggle="tab" href="#complain"><i class="fa fa-comments" style="font-size:36px"></i> Complain <span class="badge badge-secondary">{{complaintotal}}</span></a>
           <a  class="nav-link list-group-item" data-toggle="tab" href="#users"><i class="fa fa-user" style="font-size:36px"></i> Users <span class="badge badge-secondary">{{userstotal}}</span></a>
         </div>
       </div>
@@ -67,7 +67,7 @@
         </div>
         <div class="col-md-3">
           <div class="card bg-faded dash-box">
-            <h2><i class="fa fa-server" style="font-size:36px"></i>33</h2>
+            <h2><i class="fa fa-server" style="font-size:36px"></i>{{complaintotal}}</h2>
             <h4>complains</h4>
           </div>
         </div>
@@ -139,8 +139,8 @@
                              <td>Not Available</td>
                         {{/if}}
                         <td class="form-inline">
-                          <a href="/posts/edit/{{_id}}" class="btn btn-primary left-align"><i class="fa fa-pencil"></i>edit</a>
-                          <form action="/posts/{{_id}}?_method=DELETE" method="post" class="ml-2" id="delete-form">
+                          <a href="/item/edit/{{_id}}" class="btn btn-primary left-align"><i class="fa fa-pencil"></i>edit</a>
+                          <form action="/item/{{_id}}?_method=DELETE" method="post" class="ml-2" id="delete-form">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" name="button" class="btn btn-danger"><i class="fa fa-remove"></i>Delete</button>
                           </form>
@@ -156,9 +156,26 @@
    <!-- complain tab starts here -->
  <div id="complain" class="container tab-pane fade"><br>
    <div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
-     <h3 ><i class="fa fa-comments" style="font-size:36px"></i> Complains</h3>
+     <h3 ><i class="fa fa-comments" style="font-size:36px"></i> Complains and Suggestions</h3>
    </div>
-<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <div class="row">
+      {{#each complain}}
+      <div class="col-md-12">
+    <div class="card mt-3" >
+  <h5 class="card-header">{{user}}</h5>
+  <div class="card-body">
+    <h5 class="card-title"> <p class="text-muted">Subject: {{subject}}</p></h5>
+    <p class="card-text">{{ complain }}</p>
+    <p class="text-muted">Posted by : {{email}}</p>
+  </div>
+  <div class="card-footer text-muted">
+    Posted on {{formatdate date 'MMMM Do YYYY'}}
+  </div>
+</div>
+</div>
+
+      {{/each}}
+      </div>
 </div>
 
 

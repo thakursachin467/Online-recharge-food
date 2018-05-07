@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var complainSchema = new Schema ({
-users:{
+user:{
   type: String
 },
 complain:{
@@ -15,6 +15,9 @@ date:{
   type:Date,
   default:Date.now,
   required:true
+},
+subject:{
+  type: String
 }
 
 });

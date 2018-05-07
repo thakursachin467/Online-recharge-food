@@ -1,6 +1,6 @@
 var users= require('../models/users');
 var items= require('../models/items');
-var complain= require('../models/complain');
+var complains= require('../models/complain');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 var auth= require('../helpers/auth');
@@ -17,12 +17,14 @@ module.exports= function(app,passport){
         });
 
         app.get('/dashboard',(req,res)=>{
+
           users.find({})
           .sort({'_id':-1})
           .then((data)=>{
             items.find({})
             .then((data1)=>{
-              complain.find({})
+              complains.find({})
+              .sort({'_id':-1})
               .then((complain)=>{
                 res.render('users/dashboard',{
                   users:data.slice(0,5),
@@ -61,7 +63,6 @@ module.exports= function(app,passport){
 
               let errors=[];
               var Admin= false;
-              console.log(req.body.Admin);
               if(req.body.Admin === 'imadmin') {
                 Admin =true;
               }
@@ -138,21 +139,29 @@ app.get('/logout',(req,res)=>{
 
 app.get('/cart',(req,res)=>{
 
-})
+});
+
+app.get('/complain',(req,res)=>{
+    res.render('users/complain');
+});
 
 app.post('/complain',(req,res)=>{
-      email:req.user.email;
-      firstname : req.user.firstname;
-      lastname:req.user.lastname;
-      complain:req.body.complain;
-      var complain= complain({
+      var email=req.user.email;
+      var firstname = req.user.firstname;
+      var lastname=req.user.lastname;
+      var user=firstname.concat(" ",lastname);
+      var subject=req.body.subject;
+      var complain=req.body.complain;
+
+
+      var complaindata= complains({
           email:email,
-          firstname:firstname,
-          lastname:lastname,
-          complain:complain
+          user:user,
+          complain:complain,
+          subject:subject
       });
 
-      complain.save()
+      complaindata.save()
       .then(()=>{
         req.flash('success_msg','Your complain sucessfully send');
         res.redirect('/dashboard');

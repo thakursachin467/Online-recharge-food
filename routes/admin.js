@@ -17,7 +17,7 @@ module.exports = function(app){
           var itemName= req.body.itemname;
           var itemPrice= req.body.itemprice;
           var ItemProvider= req.body.Itemprovider;
-          var description= req.body.description;
+          var description= req.body.editor1;
           if(req.body.avalability) {
               var ItemAvailable= true;
           }
@@ -56,7 +56,6 @@ module.exports = function(app){
         res.render('admin/item',{
           data:data
         });
-        console.log(data.length);
       });
 
 

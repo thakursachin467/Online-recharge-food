@@ -13,7 +13,8 @@ var mongoose = require('mongoose');
         require:true
       },
       description :{
-        type:String
+        type:String,
+        require: true
       },
       ItemProvider :{
         type:String,

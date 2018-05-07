@@ -1,0 +1,53 @@
+<h2 class="text-center">Complaints Or Suggestions</h2>
+<div class="row">
+  <div class="col-md-4 d-block mx-auto">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="col-md-12 row" style="padding:0px;margin-bottom:10px;">
+
+          <div class="col-md-2">
+            <img src="http://dinus.org/img/fakultas/FIK/cs/cs.svg">
+            <div style="margin-left:30px;">
+              <img src="https://c1.sfdcstatic.com/content/dam/blogs/ca/Blog%20Posts/Every-Task-a-Customer-Service-Rep-Must-Do-opengraph.png" width="70px" height="70px" class="img-circle" style="border:3px solid #052C52;">
+            </div>
+          </div>
+          <div class="col-md-10">
+            <hr>
+            <p class="pl-5 pt-4 ml-3"><strong>{{userid.firstname}}</strong></p>
+
+          </div>
+
+
+        </div>
+
+        <form method="post" action="/complain">
+          <table class="table">
+            <tr>
+              <td>
+                <input type="email" class="form-control" value="{{userid.email}}">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input class="form-control" name="subject" type="text" placeholder="Subject">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <textarea class="form-control" name="complain" rows="4" placeholder="Complaints Or Suggestions"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn btn-danger btn-sm" type="submit" style="width: 100%;"><i class="fa fa-envelope-o" style="padding-right: 5px;"></i> Send</button>
+              </td>
+            </tr>
+          </table>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
