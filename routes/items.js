@@ -5,8 +5,14 @@ var auth= require('../helpers/auth');
 module.exports= function(app) {
 
       //show items here
-      app.get('/item/show',(req,res)=>{
-          res.render('items/show');
+      app.get('/items',(req,res)=>{
+          items.find({})
+          .then((data)=>{
+              res.render('items/show',{
+                data:data
+              });
+          });
+
       });
 
       //add an item to cart

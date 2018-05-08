@@ -10,14 +10,34 @@
 
 
        <form class="form-inline my-2 my-lg-0">
-         <input class="form-control mr-sm-2" type="search" placeholder="Search">
+        <a class="mr-3"><i class="fa fa-user"></i> Welcome {{userid.firstname}}</a>
+
+        {{#if userid.isAdmin}}
+
+        {{else}}
+        <div class="dropdown  mr-5">
+          <button class="btn btn-default dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+           <i class="fa fa-navicon" style="font-size:36px"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <div class="list-group">
+   <a href="/items" class="list-group-item list-group-item-action">Explore Items</a>
+   <a href="/cart" class="list-group-item list-group-item-action">Cart</a>
+   <a href="/complain" class="list-group-item list-group-item-action">Complain</a>
+   <a href="/dashboard" class="list-group-item list-group-item-action">Dashboard</a>
+ </div>
+</div>
+
+          </ul>
+        </div>
+{{/if}}
          <a href="/logout" class="btn btn-primary" >LOGOUT</a></button>
 
         </form>
 
        {{ else }}
        <form class="form-inline my-2 my-lg-0">
-         <input class="form-control mr-sm-2" type="search" placeholder="Search">
+
          <a href="/login" class="btn btn-primary" >LOGIN</a></button>
 
         </form>

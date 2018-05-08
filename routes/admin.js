@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var auth= require('../helpers/auth');
 
 
+
 module.exports = function(app){
 
   // parse application/x-www-form-urlencoded
@@ -16,7 +17,7 @@ module.exports = function(app){
 
           var itemName= req.body.itemname;
           var itemPrice= req.body.itemprice;
-          var ItemProvider= req.body.Itemprovider;
+          var ItemProvider= req.body.Itemprovider.toUpperCase();
           var description= req.body.editor1;
           if(req.body.avalability) {
               var ItemAvailable= true;
@@ -71,7 +72,10 @@ module.exports = function(app){
           })
 
 
-  })
+  });
+
+
+
 
 
 

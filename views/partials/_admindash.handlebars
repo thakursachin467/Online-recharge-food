@@ -31,7 +31,7 @@
 <section id="main">
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 mt-4">
         <div class="list-group nav-tabs" role="tablist">
           <a  class="list-group-item active nav-link main-color-bg" data-toggle="tab" href="#dashboard">
             <i class="fa fa-street-view" style="font-size:36px"></i> Dashboard
@@ -74,7 +74,7 @@
         <div class="col-md-3">
           <div class="card bg-faded dash-box">
             <h2><i class="fa fa-bar-chart" style="font-size:36px"></i>12,334</h2>
-            <h4>Visitors</h4>
+            <h4>Total Orders</h4>
           </div>
         </div>
         </div>
@@ -166,10 +166,10 @@
   <div class="card-body">
     <h5 class="card-title"> <p class="text-muted">Subject: {{subject}}</p></h5>
     <p class="card-text">{{ complain }}</p>
-    <p class="text-muted">Posted by : {{email}}</p>
+    <p class="text-muted">Submitted by : {{email}}</p>
   </div>
   <div class="card-footer text-muted">
-    Posted on {{formatdate date 'MMMM Do YYYY'}}
+    Submitted on {{formatdate date 'MMMM Do YYYY'}}
   </div>
 </div>
 </div>

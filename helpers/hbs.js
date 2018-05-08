@@ -14,5 +14,13 @@ formatdate:function(date,format) {
       //var local = moment(stillUtc).local().format(format);
       //return moment(date).format(format);
       //return local;
+},
+conditional: function(value1,value2){
+  
+  if (value1 == value2) {
+    return true;
+} else {
+    return false;
+}
 }
 }

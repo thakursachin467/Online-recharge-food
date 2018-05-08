@@ -1,1 +1,114 @@
-this is normal
+<header id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <h1><i class="fa fa-street-view" style="font-size:36px"></i><small class="ml-5">welcome {{userid.firstname}} {{userid.lastname}}</small></h1>
+      </div>
+      <div class="col-md-2 pl-5">
+          <a class="btn btn-primary mt-2" href="/items">
+          <i class="fa fa-cart-arrow-down" style="font-size:36px"></i>  Explore Food
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<section id="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 mt-4">
+        <div class="list-group nav-tabs" role="tablist">
+          <a  class="list-group-item active nav-link main-color-bg" data-toggle="tab" href="#dashboard">
+            <i class="fa fa-street-view" style="font-size:36px"></i> Personal Info
+          </a>
+          <a  class="nav-link list-group-item" data-toggle="tab" href="#items"><i class="fa fa-glass" style="font-size:36px"></i> Orders</a>
+          <a class="nav-link list-group-item" data-toggle="tab" href="#complain"><i class="fa fa-comments" style="font-size:36px"></i> Complains and Suggestions</a>
+        </div>
+      </div>
+
+
+      <div class="col-md-9">
+        <!-- Website Overview -->
+        <div class="tab-content">
+  <div id="dashboard" class="container tab-pane active"><br>
+
+  <!-- Latest Users -->
+  <div class="card" style="width:300px">
+    <img class="card-img-top" src="https://www.brisksale.com/images/no-user-image-square.jpg" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <h4 class="card-title">{{userid.firstname}} {{userid.lastname}}</h4>
+      <p class="card-text">{{userid.email}}</p>
+    </div>
+  </div>
+</div>
+
+
+             <!-- items tab starts here -->
+            <div id="items" class="container tab-pane fade"><br>
+              <div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
+                <h3 ><i class="fa fa-cubes" style="font-size:36px"></i> Items</h3>
+              </div>
+              <div class="panel panel-default mt-3">
+                <div class="panel-heading">
+                  <h3 class="panel-title">All Items</h3>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-striped table-hover">
+                      <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Provider</th>
+                        <th>Order Date</th>
+
+                      </tr>
+
+                    <tbody>
+
+                      <tr>
+                        <td>{{itemName}}</td>
+                        <td>{{itemPrice}}</td>
+                        <td>{{ItemProvider}}</td>
+                        <td>{{orderDate}}</td>
+
+                    </tbody>
+                    </table>
+                </div>
+              </div>
+
+ </div>
+   <!-- complain tab starts here -->
+ <div id="complain" class="container tab-pane fade"><br>
+   <div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
+     <h3 ><i class="fa fa-comments" style="font-size:36px"></i> Complains and Suggestions you gave</h3>
+   </div>
+    <div class="row">
+      {{#each complain}}
+      <div class="col-md-12">
+    <div class="card mt-3" >
+      <div class="card-header">
+  <h5 >{{user}}</h5>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"> <p class="text-muted">Subject: {{subject}}</p></h5>
+    <p class="card-text">{{ complain }}</p>
+    <p class="text-muted">Submitted by : {{email}}</p>
+  </div>
+  <div class="card-footer text-muted">
+    Submitted on {{formatdate date 'MMMM Do YYYY'}}
+  </div>
+</div>
+</div>
+
+      {{/each}}
+      </div>
+</div>
+
+ </div>
+<!--tabs ends here -->
+      </div>
+      <!-- col-md-9 ends here -->
+
+    </div>
+  </div>
+</section>

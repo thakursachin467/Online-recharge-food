@@ -1,0 +1,98 @@
+<div class="row">
+<div class="col-md-3 mt-4">
+  <div class="list-group nav-tabs" role="tablist">
+    <a  class="list-group-item active nav-link " data-toggle="tab" href="#dashboard">
+       Food Court
+    </a>
+    <a  class="nav-link list-group-item" data-toggle="tab" href="#items"> TQ <span class="badge badge-secondary"></span></a>
+    <a class="nav-link list-group-item" data-toggle="tab" href="#complain"> LAPINOZ <span class="badge badge-secondary"></span></a>
+    <a  class="nav-link list-group-item" data-toggle="tab" href="#users"> Burgrill <span class="badge badge-secondary"></span></a>
+  </div>
+</div>
+
+<div class="col-md-9">
+  <!-- Website Overview -->
+  <div class="tab-content">
+      <div id="dashboard" class="container tab-pane active"><br>
+        <div class="panel panel-default">
+<div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
+  <h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> Food Court</h3>
+</div>
+<div class="panel-body mt-3">
+  {{#each data}}
+
+  {{#if (conditional ItemProvider "FOOD COURT")}}
+      {{ItemProvider}}
+  {{/if}}
+
+
+  {{/each}}
+</div>
+</div>
+</div>
+<!-- Latest Users -->
+
+<div id="items" class="container tab-pane fade"><br>
+<div class="panel panel-default ">
+  <div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
+    <h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> TQ</h3>
+  </div>
+  <div class="panel-body">
+    {{#each data}}
+
+    {{#if (conditional ItemProvider "TQ")}}
+        {{ItemProvider}}
+    {{/if}}
+
+
+    {{/each}}
+
+  </div>
+</div>
+</div>
+
+<!-- complain tab starts here -->
+<div id="complain" class="container tab-pane fade"><br>
+<div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
+<h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> LAPINOZ</h3>
+</div>
+<div class="row">
+  {{#each data}}
+
+  {{#if (conditional ItemProvider "LAPINOZ")}}
+      {{ItemProvider}}
+  {{/if}}
+
+
+  {{/each}}
+</div>
+</div>
+
+
+
+<!-- users tabs starts here -->
+<div id="users" class="container tab-pane fade"><br>
+<div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
+<h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> Burgrill</h3>
+</div>
+<div class="panel panel-default mt-3">
+
+<div class="panel-body">
+  {{#each data}}
+
+  {{#if (conditional ItemProvider "BURGRILL")}}
+      {{ItemProvider}}
+  {{/if}}
+
+
+  {{/each}}
+</div>
+</div>
+</div>
+</div>
+<!--tabs ends here -->
+</div>
+
+
+
+</div>

@@ -12,10 +12,9 @@ var items= require('./routes/items');
 var pasportConfig= require('./config/passport');
 var path = require('path');
 var methodOverride = require('method-override');
-const {limit,formatdate}=require('./helpers/hbs');
+const {limit,formatdate,conditional}=require('./helpers/hbs');
 var app= express();
 
-console.log(limit);
  //set the port here
  var port= process.env.PORT || 3000;
 app.use('/assests',express.static(__dirname +'/public'));
@@ -23,7 +22,8 @@ app.use('/assests',express.static(__dirname +'/public'));
 app.engine('handlebars', exphbs({
   helpers:{
   limit:limit,
-  formatdate:formatdate
+  formatdate:formatdate,
+  conditional:conditional
 },
 defaultLayout: 'main'}));
  app.set('view engine', 'handlebars');
@@ -37,6 +37,8 @@ defaultLayout: 'main'}));
    resave: true,
    saveUninitialized: true
  }));
+
+
 
 
  //flash middleware
@@ -56,9 +58,13 @@ defaultLayout: 'main'}));
     res.locals.error_msg= req.flash('error_msg');
     res.locals.error= req.flash('error');
     res.locals.userid=req.user || null;
+
       next();
 
 });
+
+
+
 
 
 //user register and login path
@@ -83,7 +89,10 @@ admin(app);
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname,"online","index.html"));
+
+
 });
+
 
 
 //connection establiahed to database
@@ -93,5 +102,7 @@ pasportConfig(passport);
 //started a server here
  app.listen(port,()=>{
    console.log(`server started at port ${port}`);
+
+
 
  });
