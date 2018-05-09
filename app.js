@@ -10,9 +10,11 @@ var users= require('./routes/user');
 var admin= require('./routes/admin');
 var items= require('./routes/items');
 var pasportConfig= require('./config/passport');
+const mongoose = require('mongoose');
 var path = require('path');
 var methodOverride = require('method-override');
 const {limit,formatdate,conditional}=require('./helpers/hbs');
+const MongoStore = require('connect-mongo')(session);
 var app= express();
 
  //set the port here
@@ -35,7 +37,9 @@ defaultLayout: 'main'}));
  app.use(session({
    secret: 'keyboard cat',
    resave: true,
-   saveUninitialized: true
+   saveUninitialized: true,
+   store: new MongoStore({ mongooseConnection: mongoose.connection }),
+   cookie : {maxAge:180 * 60 * 1000}
  }));
 
 
@@ -58,6 +62,7 @@ defaultLayout: 'main'}));
     res.locals.error_msg= req.flash('error_msg');
     res.locals.error= req.flash('error');
     res.locals.userid=req.user || null;
+    res.locals.session= req.session;
 
       next();
 

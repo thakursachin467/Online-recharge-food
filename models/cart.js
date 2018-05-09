@@ -6,12 +6,22 @@ ObjectId=Schema.Types.ObjectId
 
 var cartSchema = new Schema ({
 users:{
-  type:ObjectId,
-  ref:'users'
+  type:String
 },
 items:{
-  type:ObjectId,
-  ref:'items'
+  type: String
+},
+quantity:{
+  type: Number
+},
+totalPrice:{
+  type: Number
+},
+grandTotalPrice:{
+  type : Number
+},
+grandTotalQuantity:{
+  type : Number
 }
 
 });

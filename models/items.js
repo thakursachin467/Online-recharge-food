@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
         require:true
       },
       itemPrice :{
-        type: String,
+        type: Number,
         require:true
       },
       description :{

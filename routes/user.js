@@ -1,5 +1,6 @@
 var users= require('../models/users');
 var items= require('../models/items');
+var cart= require('../models/cart');
 var complains= require('../models/complain');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
@@ -137,9 +138,66 @@ app.get('/logout',(req,res)=>{
 });
 
 
-app.get('/cart',(req,res)=>{
+app.get('/cart/:id',(req,res)=>{
+      let check;
+      var productId= req.params.id;
+      items.findById(productId,(err,item)=>{
+        if(err) {
+          req.flash('error_msg','some error occured');
+
+        }
+        else {
+                  cart.findOne({items:productId})
+                  .then((data)=>{
+                    if(data){
+                      var Oldquantity= data.quantity;
+                      var adder= 1;
+                      var Newquantity= Oldquantity+adder;
+                      var price= item.itemPrice;
+                      var totalPrice= price * Newquantity;
+                      cart.findOneAndUpdate({items:productId},{
+                        quantity:Newquantity,
+                        totalPrice:totalPrice,
+                        users:req.user._id,
+                        items:productId
+                      })
+                      .then(()=>{
+                        
+
+                      })
+
+                    }
+                    else {
+                      var quantity= req.body.quantity || 1;
+                      var price=item.itemPrice;
+                      var totalPrice= price*quantity;
+                      var cartItem = new cart({
+                        users:req.user._id,
+                        items:productId,
+                        totalPrice:totalPrice,
+                        quantity:quantity
+                      });
+                      cartItem.save()
+                      .then(()=>{
+
+                      })
+
+                    }
+
+
+
+                  });
+
+
+                }
+
+      });
+
+
 
 });
+
+
 
 app.get('/complain',(req,res)=>{
     res.render('users/complain');
