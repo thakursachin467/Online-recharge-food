@@ -84,6 +84,7 @@
    </div>
     <div class="row">
       {{#each complain}}
+      {{#if (conditional email userid.email)}}
       <div class="col-md-12">
     <div class="card mt-3" >
       <div class="card-header">
@@ -99,9 +100,10 @@
   </div>
 </div>
 </div>
+{{/if}}
+{{/each}}
 
-      {{/each}}
-      </div>
+</div>
 </div>
 
  </div>

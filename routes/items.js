@@ -27,6 +27,7 @@ module.exports= function(app) {
 
       });
 
+      //update the info of a perticular item
       app.put('/item/edit/:id',(req,res)=>{
           var itemName= req.body.itemname;
           var itemPrice= req.body.itemprice;
@@ -52,7 +53,7 @@ module.exports= function(app) {
 
       });
 
-      //delete a item from cart
+      //delete a item by admin from entire website
       app.delete('/item/:id',(req,res)=>{
                 items.findOneAndRemove({_id:req.params.id})
                 .then(()=>{
@@ -61,6 +62,30 @@ module.exports= function(app) {
                 });
 
       });
-      
+
+      //delete an item from cart
+      app.delete('/items/:id',(req,res)=>{
+            cart.findOne({users:req.user._id})
+            .then((data)=>{
+                  if(data) {
+                    cart.findOneAndRemove({items:req.params.id})
+                    .then((data)=>{
+                      req.flash('success_msg','item sucessfully removed from cart');
+                      cart.find({users:req.user._id})
+                        .populate('items')
+                        .then((data)=>{
+                          req.session.cart=data;
+                          req.session.save(function(err) {
+                          res.redirect('/cart');
+                          });
+
+
+                      });
+
+                    });
+                  }
+            });
+      });
+
 
 }

@@ -21,24 +21,35 @@
   <h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> Food Court</h3>
 </div>
 <div class="panel-body mt-3">
+  <table  class="table table-hover table-condensed mt-2">
+    <thead>
+    <tr>
+      <th style="width:50%">Product</th>
+      <th style="width:20%">Price</th>
+      <th style="width:22%" class="text-center">ADD</th>
+    </tr>
+  </thead>
   {{#each data}}
-
   {{#if (conditional ItemProvider "FOOD COURT")}}
-      <div class=" card mt-2">
-        <div class="row">
-            <div class="col-md-9">
-                <a href="/cart/{{id}}" class="list-group-item list-group-item-action">{{itemName}} <p>Price: {{itemPrice}}</p> <p> {{description}} </p>
-                </a>
+      <tbody>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col-sm-10">
+                <h4 class="nomargin">{{itemName}}</h4>
+                <p>{{description}}</p>
+              </div>
             </div>
-            <div class="col-md-2">
-              <a href="/cart/{{id}}" class="list-group-item list-group-item-action btn btn-outline-primary mt-4">Add</a>
-            </div>
-        </div>
-      </div>
+          </td>
+          <td >&#8377; {{itemPrice}}</td>
+          <td class="text-center">
+              <a href="/cart/{{id}}"  class="btn btn-danger btn-sm"><i class="fa fa-cart-plus" style="font-size:16px"></i>Add</a>
+          </td>
+        </tr>
+      </tbody>
   {{/if}}
-
-
   {{/each}}
+  </table>
 </div>
 </div>
 </div>
@@ -50,25 +61,35 @@
     <h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> TQ</h3>
   </div>
   <div class="panel-body">
+    <table  class="table table-hover table-condensed mt-2">
+      <thead>
+      <tr>
+        <th style="width:50%">Product</th>
+        <th style="width:20%">Price</th>
+        <th style="width:22%" class="text-center">ADD</th>
+      </tr>
+    </thead>
     {{#each data}}
-
     {{#if (conditional ItemProvider "TQ")}}
-    <div class=" card mt-2">
-      <div class="row">
-          <div class="col-md-9">
-              <a href="/cart/{{id}}" class="list-group-item list-group-item-action">{{itemName}} <p>Price: {{itemPrice}}</p> <p> {{description}} </p>
-              </a>
+      <tbody>
+      <tr>
+        <td>
+          <div class="row">
+            <div class="col-sm-10">
+              <h4 class="nomargin">{{itemName}}</h4>
+              <p>{{description}}</p>
+            </div>
           </div>
-          <div class="col-md-2">
-            <a href="/cart/{{id}}" class="list-group-item list-group-item-action btn btn-outline-primary mt-4">Add</a>
-          </div>
-      </div>
-    </div>
+        </td>
+        <td >&#8377; {{itemPrice}}</td>
+        <td class="text-center">
+            <a href="/cart/{{id}}"  class="btn btn-danger btn-sm"><i class="fa fa-cart-plus" style="font-size:16px"></i>Add</a>
+        </td>
+      </tr>
+    </tbody>
     {{/if}}
-
-
-    {{/each}}
-
+  {{/each}}
+</table>
   </div>
 </div>
 </div>
@@ -78,25 +99,38 @@
 <div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
 <h3 ><i class="fa fa-cutlery" style="font-size:36px"></i> LAPINOZ</h3>
 </div>
-<div class="row">
+<div class="panel panel-default mt-3">
+<div class="panel-body">
+  <table  class="table table-hover table-condensed mt-2">
+    <thead>
+    <tr>
+      <th style="width:50%">Product</th>
+      <th style="width:20%">Price</th>
+      <th style="width:22%" class="text-center">ADD</th>
+    </tr>
+  </thead>
   {{#each data}}
-
   {{#if (conditional ItemProvider "LAPINOZ")}}
-  <div class=" card mt-2">
-    <div class="row">
-        <div class="col-md-9">
-            <a href="/cart/{{id}}" class="list-group-item list-group-item-action">{{itemName}} <p>Price: {{itemPrice}}</p> <p> {{description}} </p>
-            </a>
+  <tbody>
+  <tr>
+    <td>
+      <div class="row">
+        <div class="col-sm-10">
+          <h4 class="nomargin">{{itemName}}</h4>
+          <p>{{description}}</p>
         </div>
-        <div class="col-md-2">
-          <a href="/cart/{{id}}" class="list-group-item list-group-item-action btn btn-outline-primary mt-4">Add</a>
-        </div>
-    </div>
-  </div>
+      </div>
+    </td>
+    <td >&#8377; {{itemPrice}}</td>
+    <td class="text-center">
+        <a href="/cart/{{id}}"  class="btn btn-danger btn-sm"><i class="fa fa-cart-plus" style="font-size:16px"></i>Add</a>
+    </td>
+  </tr>
+</tbody>
   {{/if}}
-
-
   {{/each}}
+  </table>
+</div>
 </div>
 </div>
 
@@ -110,24 +144,35 @@
 <div class="panel panel-default mt-3">
 
 <div class="panel-body">
+  <table  class="table table-hover table-condensed mt-2">
+    <thead>
+    <tr>
+      <th style="width:50%">Product</th>
+      <th style="width:20%">Price</th>
+      <th style="width:22%" class="text-center">ADD</th>
+    </tr>
+  </thead>
   {{#each data}}
-
   {{#if (conditional ItemProvider "BURGRILL")}}
-  <div class=" card mt-2">
-    <div class="row">
-        <div class="col-md-9">
-            <a href="/cart/{{id}}" class="list-group-item list-group-item-action">{{itemName}} <p>Price: {{itemPrice}}</p> <p> {{description}} </p>
-            </a>
+  <tbody>
+  <tr>
+    <td>
+      <div class="row">
+        <div class="col-sm-10">
+          <h4 class="nomargin">{{itemName}}</h4>
+          <p>{{description}}</p>
         </div>
-        <div class="col-md-2">
-          <a href="/cart/{{id}}" class="list-group-item list-group-item-action btn btn-outline-primary mt-4">Add</a>
-        </div>
-    </div>
-  </div>
+      </div>
+    </td>
+    <td >&#8377; {{itemPrice}}</td>
+    <td class="text-center">
+        <a href="/cart/{{id}}"  class="btn btn-danger btn-sm"><i class="fa fa-cart-plus" style="font-size:16px"></i>Add</a>
+    </td>
+  </tr>
+</tbody>
   {{/if}}
-
-
   {{/each}}
+</table>
 </div>
 </div>
 </div>
@@ -139,24 +184,35 @@
 <div class="panel panel-default mt-3">
 
 <div class="panel-body">
+  <table  class="table table-hover table-condensed mt-2">
+    <thead>
+    <tr>
+      <th style="width:50%">Product</th>
+      <th style="width:20%">Price</th>
+      <th style="width:22%" class="text-center">ADD</th>
+    </tr>
+  </thead>
   {{#each data}}
-
   {{#if (conditional ItemProvider "HAVMORE")}}
-  <div class=" card mt-2">
-    <div class="row">
-        <div class="col-md-9">
-            <a href="/cart/{{id}}" class="list-group-item list-group-item-action">{{itemName}} <p>Price: {{itemPrice}}</p> <p> {{description}} </p>
-            </a>
+  <tbody>
+  <tr>
+    <td>
+      <div class="row">
+        <div class="col-sm-10">
+          <h4 class="nomargin">{{itemName}}</h4>
+          <p>{{description}}</p>
         </div>
-        <div class="col-md-2">
-          <a href="/cart/{{id}}" class="list-group-item list-group-item-action btn btn-outline-primary mt-4">Add</a>
-        </div>
-    </div>
-  </div>
+      </div>
+    </td>
+    <td >&#8377; {{itemPrice}}</td>
+    <td class="text-center">
+        <a href="/cart/{{id}}"  class="btn btn-danger btn-sm"><i class="fa fa-cart-plus" style="font-size:16px"></i>Add</a>
+    </td>
+  </tr>
+</tbody>
   {{/if}}
-
-
   {{/each}}
+</table>
 </div>
 </div>
 </div>
@@ -165,13 +221,49 @@
 <!--tabs ends here -->
 </div>
 
-<div class="col-md-3 mt-4">
+<div class="col-md-3 mt-4 ">
   <div class="menu  p-3 bg-light">
-                <h5 class="text-primary">Your Cart <span class="badge  badge-primary">{{size sessions.cart}}</span></h5>
+                <h5 class="text-primary">Your Order <span class="badge  badge-primary">{{size sessions.cart}}</span></h5>
                 <div class="nav flex-column">
+                  <table class="table table-hover table-fixed">
+                  <thead>
+                  <tr>
+                    <th style="width:50%">Product</th>
+                    <th style="width:50%" class="text-center">Subtotal</th>
+
+                  </tr>
+                </thead>
                       {{#each sessions.cart}}
-                              {{totalPrice}}
+                              <tbody>
+                    						<tr>
+                    							<td data-th="Product">
+                    								<div class="row">
+                    									<div class="col-sm-10">
+                    										<h6 class="nomargin">{{items.itemName}}</h6>
+                                      <small class="badge badge-pill text-muted badge-light"> {{quantity}} &times; &#8377;{{items.itemPrice}} </small>
+                    									</div>
+                    								</div>
+                    							</td>
+
+                    							<td data-th="Subtotal" class="text-center">&#8377; {{totalPrice}}</td>
+                    						</tr>
+                    					</tbody>
                       {{/each}}
+                      <tfoot>
+                      <tr >
+                        <td>Total:</td>
+                        <td class="hidden-xs text-center align-middle"><strong> &#8377;{{total sessions.cart}}</strong></td>
+
+                      </tr>
+                    </tfoot>
+                        </table>
+                        <tfoot>
+              						<tr>
+                            <td></td>
+              							<td><a href="/cart" class="btn btn-success btn-block align-middle">Continue</a></td>
+
+              						</tr>
+              					</tfoot>
                 </div>
             </div>
 

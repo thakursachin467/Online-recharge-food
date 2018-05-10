@@ -13,7 +13,7 @@ var pasportConfig= require('./config/passport');
 const mongoose = require('mongoose');
 var path = require('path');
 var methodOverride = require('method-override');
-const {limit,formatdate,conditional,size,total}=require('./helpers/hbs');
+const {limit,formatdate,conditional,size,total,totalitems}=require('./helpers/hbs');
 const MongoStore = require('connect-mongo')(session);
 var app= express();
 
@@ -27,7 +27,8 @@ app.engine('handlebars', exphbs({
   formatdate:formatdate,
   conditional:conditional,
   size:size,
-  total:total
+  total:total,
+  totalitems:totalitems
 },
 defaultLayout: 'main'}));
  app.set('view engine', 'handlebars');

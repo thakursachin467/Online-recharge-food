@@ -42,6 +42,18 @@ total: function(obj) {
 
 
 
+},
+totalitems: function(obj) {
+
+        var total= obj.reduce(function(prev,cur){
+              return prev + cur.quantity;
+        },0)
+
+        return total;
+
+
+
+
 }
 
 

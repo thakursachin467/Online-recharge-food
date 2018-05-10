@@ -1,6 +1,4 @@
-{{#each sessions.cart}}
-
-<table id="cart" class="table table-hover table-condensed">
+<table  class="table table-hover table-condensed">
     				<thead>
 						<tr>
 							<th style="width:50%">Product</th>
@@ -10,6 +8,7 @@
 							<th style="width:10%"></th>
 						</tr>
 					</thead>
+{{#each sessions.cart}}
 					<tbody>
 						<tr>
 							<td data-th="Product">
@@ -21,21 +20,24 @@
 									</div>
 								</div>
 							</td>
-							<td data-th="Price">{{items.itemPrice}}</td>
+							<td data-th="Price">&#8377; {{items.itemPrice}}</td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="{{quantity}}">
+								<input type="number" class="form-control text-center" value="{{quantity}}" disabled>
 							</td>
-							<td data-th="Subtotal" class="text-center">{{totalPrice}}</td>
-							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+							<td data-th="Subtotal" class="text-center">&#8377; {{totalPrice}}</td>
+							<td class="actions form-inline">
+								<a  class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></a>
+                <form action="/items/{{items._id}}?_method=DELETE" method="post" id="delete-form" class="pl-1">
+                  <input type="hidden" name="_method" value="DELETE">
+								  <button type="submit"  class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+              </form>
 							</td>
 						</tr>
 					</tbody>
           {{/each}}
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>&#8377; {{total sessions.cart}}</strong></td>
+						<tr >
+              <td class="text-center"><strong>Total Items : {{totalitems sessions.cart}}</strong></td>
 						</tr>
 						<tr>
 							<td><a href="/items" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>

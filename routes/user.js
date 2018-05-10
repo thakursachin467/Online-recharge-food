@@ -163,8 +163,11 @@ app.get('/cart/:id',(req,res)=>{
                           cart.find({users:req.user._id})
                           .populate('items')
                           .then((data)=>{
-                              saveCart(req,data);
-                              res.redirect('/items');
+                            req.session.cart=data;
+                            req.session.save(function(err) {
+                                res.redirect('/items');
+                  });
+
 
                           });
 
@@ -186,8 +189,11 @@ app.get('/cart/:id',(req,res)=>{
                           cart.find({users:req.user._id})
                           .populate('items')
                           .then((data)=>{
-                              saveCart(req,data);
-                              res.redirect('/items');
+                            req.session.cart=data;
+                            req.session.save(function(err) {
+                                res.redirect('/items');
+                  });
+
 
                           });
 
@@ -204,15 +210,9 @@ app.get('/cart/:id',(req,res)=>{
 
       });
 
-        function saveCart(req,data) {
-          req.session.cart=data;
-          req.session.save(function(err) {
-
-});
+        
 
 
-        }
-          
 });
 
 
