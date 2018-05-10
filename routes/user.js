@@ -14,7 +14,13 @@ module.exports= function(app,passport){
   app.use(bodyParser.json());
 
       app.get('/login',(req,res)=>{
-          res.render('users/login');
+        if(req.user) {
+            res.redirect('/dashboard');
+        }
+        else {
+            res.render('users/login');
+        }
+
         });
 
         app.get('/dashboard',(req,res)=>{
@@ -210,7 +216,7 @@ app.get('/cart/:id',(req,res)=>{
 
       });
 
-        
+
 
 
 });
