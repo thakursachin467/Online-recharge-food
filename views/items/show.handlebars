@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div class="col-md-9">
+<div class="col-md-6">
   <!-- Website Overview -->
   <div class="tab-content">
       <div id="foodcourt" class="container tab-pane active"><br>
@@ -165,6 +165,17 @@
 <!--tabs ends here -->
 </div>
 
+<div class="col-md-3 mt-4">
+  <div class="menu  p-3 bg-light">
+                <h5 class="text-primary">Your Cart <span class="badge  badge-primary">{{size sessions.cart}}</span></h5>
+                <div class="nav flex-column">
+                      {{#each sessions.cart}}
+                              {{totalPrice}}
+                      {{/each}}
+                </div>
+            </div>
+
+</div>
 
 
 </div>

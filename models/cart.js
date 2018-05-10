@@ -9,7 +9,8 @@ users:{
   type:String
 },
 items:{
-  type: String
+  type: ObjectId,
+  ref:'item'
 },
 quantity:{
   type: Number

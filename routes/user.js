@@ -137,64 +137,82 @@ app.get('/logout',(req,res)=>{
 
 });
 
+app.get('/cart',(req,res)=>{
+    res.render('items/cart');
+});
 
 app.get('/cart/:id',(req,res)=>{
-      let check;
+
       var productId= req.params.id;
       items.findById(productId,(err,item)=>{
-        if(err) {
-          req.flash('error_msg','some error occured');
-
-        }
-        else {
                   cart.findOne({items:productId})
-                  .then((data)=>{
-                    if(data){
-                      var Oldquantity= data.quantity;
-                      var adder= 1;
-                      var Newquantity= Oldquantity+adder;
-                      var price= item.itemPrice;
-                      var totalPrice= price * Newquantity;
-                      cart.findOneAndUpdate({items:productId},{
-                        quantity:Newquantity,
-                        totalPrice:totalPrice,
-                        users:req.user._id,
-                        items:productId
-                      })
-                      .then(()=>{
-                        
+                    .then((data)=>{
+                      if(data){
+                        var Oldquantity= data.quantity;
+                        var adder= 1;
+                        var Newquantity= Oldquantity+adder;
+                        var price= item.itemPrice;
+                        var totalPrice= price * Newquantity;
+                        cart.findOneAndUpdate({items:productId},{
+                          quantity:Newquantity,
+                          totalPrice:totalPrice,
+                          users:req.user._id,
+                          items:productId
+                        })
+                        .then(()=>{
+                          cart.find({users:req.user._id})
+                          .populate('items')
+                          .then((data)=>{
+                              saveCart(req,data);
+                              res.redirect('/items');
 
-                      })
+                          });
 
-                    }
-                    else {
-                      var quantity= req.body.quantity || 1;
-                      var price=item.itemPrice;
-                      var totalPrice= price*quantity;
-                      var cartItem = new cart({
-                        users:req.user._id,
-                        items:productId,
-                        totalPrice:totalPrice,
-                        quantity:quantity
-                      });
-                      cartItem.save()
-                      .then(()=>{
+                        })
 
-                      })
+                      }
+                      else {
+                        var quantity= req.body.quantity || 1;
+                        var price=item.itemPrice;
+                        var totalPrice= price*quantity;
+                        var cartItem = new cart({
+                          users:req.user._id,
+                          items:productId,
+                          totalPrice:totalPrice,
+                          quantity:quantity
+                        });
+                        cartItem.save()
+                        .then(()=>{
+                          cart.find({users:req.user._id})
+                          .populate('items')
+                          .then((data)=>{
+                              saveCart(req,data);
+                              res.redirect('/items');
 
-                    }
+                          });
+
+                        })
+
+                      }
+                    });
 
 
 
-                  });
 
 
-                }
+
 
       });
 
+        function saveCart(req,data) {
+          req.session.cart=data;
+          req.session.save(function(err) {
+
+});
 
 
+        }
+          
 });
 
 

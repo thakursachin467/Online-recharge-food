@@ -16,11 +16,33 @@ formatdate:function(date,format) {
       //return local;
 },
 conditional: function(value1,value2){
-  
+
   if (value1 == value2) {
     return true;
 } else {
     return false;
 }
+},
+
+size: function(obj){
+  var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+},
+total: function(obj) {
+
+        var total= obj.reduce(function(prev,cur){
+              return prev + cur.totalPrice;
+        },0)
+
+        return total;
+
+
+
+
 }
+
+
 }

@@ -22,7 +22,7 @@
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <div class="list-group">
    <a href="/items" class="list-group-item list-group-item-action">Explore Items</a>
-   <a href="/cart" class="list-group-item list-group-item-action">Cart</a>
+   <a href="/cart" class="list-group-item list-group-item-action">Cart <span class="badge  badge-primary">{{size sessions.cart}}</span> </a>
    <a href="/complain" class="list-group-item list-group-item-action">Complain</a>
    <a href="/dashboard" class="list-group-item list-group-item-action">Dashboard</a>
  </div>
@@ -43,4 +43,5 @@
         </form>
         {{/if}}
      </div>
+
 </nav>
