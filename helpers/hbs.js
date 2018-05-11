@@ -16,7 +16,7 @@ formatdate:function(date,format) {
       //return local;
 },
 conditional: function(value1,value2){
-  console.log(value2);
+  
   if (value1 == value2) {
     return true;
 } else {
@@ -33,11 +33,16 @@ size: function(obj){
 },
 total: function(obj) {
 
+        if(obj) {
         var total= obj.reduce(function(prev,cur){
               return prev + cur.totalPrice;
         },0)
 
         return total;
+      }
+      else {
+        return 0;
+      }
 
 
 
@@ -50,6 +55,23 @@ totalitems: function(obj) {
         },0)
 
         return total;
+
+
+
+
+},
+totalpay: function(obj) {
+
+        if(obj) {
+        var total= obj.reduce(function(prev,cur){
+              return prev + cur.totalPrice;
+        },0)
+
+        return total*100;
+      }
+      else {
+        return 0;
+      }
 
 
 

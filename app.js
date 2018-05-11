@@ -13,7 +13,7 @@ var pasportConfig= require('./config/passport');
 const mongoose = require('mongoose');
 var path = require('path');
 var methodOverride = require('method-override');
-const {limit,formatdate,conditional,size,total,totalitems}=require('./helpers/hbs');
+const {limit,formatdate,conditional,size,total,totalitems,totalpay}=require('./helpers/hbs');
 const MongoStore = require('connect-mongo')(session);
 var app= express();
 
@@ -28,7 +28,8 @@ app.engine('handlebars', exphbs({
   conditional:conditional,
   size:size,
   total:total,
-  totalitems:totalitems
+  totalitems:totalitems,
+  totalpay:totalpay
 },
 defaultLayout: 'main'}));
  app.set('view engine', 'handlebars');
@@ -42,7 +43,7 @@ defaultLayout: 'main'}));
    resave: true,
    saveUninitialized: true,
    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-   cookie : {maxAge:180 * 60 * 1000}
+   cookie : {maxAge:180 * 60 * 60 * 1000}
  }));
 
 

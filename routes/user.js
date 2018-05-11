@@ -4,10 +4,15 @@ var cart= require('../models/cart');
 var complains= require('../models/complain');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
+var Razorpay= require('razorpay');
 var auth= require('../helpers/auth');
 
 module.exports= function(app,passport){
-
+  var instance = new Razorpay({
+key_id: 'rzp_test_c1MSR57qMelY4b',
+key_secret: '2qY31tri4Vt6g06J2r2MzOLO'
+})
+var totalorder;
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: false }));
   // parse application/json
@@ -24,7 +29,11 @@ module.exports= function(app,passport){
         });
 
         app.get('/dashboard',(req,res)=>{
+            instance.payments.all()
+            .then((data)=>{
+              totalorder=data.count;
 
+            })
           users.find({})
           .sort({'_id':-1})
           .then((data)=>{
@@ -40,12 +49,26 @@ module.exports= function(app,passport){
                   usersall:data,
                   itemsall:data1,
                   complain:complain,
-                  complaintotal:complain.length
+                  complaintotal:complain.length,
+                  totalorder:totalorder
+                });
+                cart.find({users:req.user._id})
+                .populate('items')
+                .then((data)=>{
+                  req.session.cart=data;
+                  req.session.save(function(err) {
+
+        });
+
+
                 });
               });
 
             });
           });
+
+
+
         });
 
 
@@ -139,7 +162,7 @@ module.exports= function(app,passport){
 app.get('/logout',(req,res)=>{
       req.logout();
     //  req.flash('success_msg','you are logout');
-      res.redirect('/');
+      res.redirect('/login');
 
 });
 
@@ -249,6 +272,31 @@ app.post('/complain',(req,res)=>{
         res.redirect('/dashboard');
       })
 
+
+});
+
+
+app.get('/checkout',(req,res)=>{
+
+
+
+
+
+    res.render("items/checkout",{
+      key:instance.key_id
+    });
+});
+
+app.post('/checkout',(req,res)=>{
+
+
+      instance.payments.capture(req.body.razorpay_payment_id, req.body.amount)
+      .then((data)=>{
+      //  console.log(data);
+      })
+      .catch((error)=>{
+        //console.log(error);
+      })
 
 });
 
