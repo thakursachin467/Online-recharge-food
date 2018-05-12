@@ -182,6 +182,7 @@ app.get('/cart/:id',(req,res)=>{
         if(data) {
           items.findById(productId,(err,item)=>{
                       cart.findOne({items:productId})
+                          .where(users).equals(req.user._id)
                         .then((data)=>{
                           if(data){
 
@@ -244,13 +245,6 @@ app.get('/cart/:id',(req,res)=>{
 
                           }
                         });
-
-
-
-
-
-
-
           });
         }
         else {
@@ -271,21 +265,15 @@ app.get('/cart/:id',(req,res)=>{
             })
             cartItem.save()
             .then(()=>{
-              cart.find({users:req.user._id})
-              .populate('items')
-              .then((data)=>{
-                req.session.cart=data;
+                req.session.cart=cartItem;
                 req.session.save(function(err) {
                     res.redirect('/items');
       });
-              });
-            })
+
+    });
 
           }
 
-        else {
-          console.log(err);
-        }
 });
       }
 });
