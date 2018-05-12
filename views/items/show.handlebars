@@ -257,13 +257,24 @@
                       </tr>
                     </tfoot>
                         </table>
+                          {{#if (conditional1 (total sessions.cart) 0)}}
                         <tfoot>
               						<tr>
                             <td></td>
-              							<td><a href="/cart" class="btn btn-success btn-block align-middle">Continue</a></td>
+              							<td><a href="/cart" class="btn btn-success btn-block align-middle disabled">Continue</a></td>
 
               						</tr>
               					</tfoot>
+                        {{else}}
+                        <tfoot>
+                          <tr>
+                            <td></td>
+                            <td><a href="/cart" class="btn btn-success btn-block align-middle">Continue</a></td>
+
+                          </tr>
+                        </tfoot>
+
+                        {{/if}}
                 </div>
             </div>
 

@@ -1,6 +1,7 @@
 var items= require('../models/items');
 var cart= require('../models/cart');
 var auth= require('../helpers/auth');
+var {ensureAuthenticated}= require('../helpers/auth');
 
 module.exports= function(app) {
 
@@ -15,8 +16,8 @@ module.exports= function(app) {
 
       });
 
-      //add an item to cart
-      app.get('/item/edit/:id',(req,res)=>{
+      //edit an item by admin
+      app.get('/item/edit/:id',ensureAuthenticated,(req,res)=>{
 
               items.findOne({_id:req.params.id})
               .then((data)=>{
@@ -27,8 +28,8 @@ module.exports= function(app) {
 
       });
 
-      //update the info of a perticular item
-      app.put('/item/edit/:id',(req,res)=>{
+      //update the info of a perticular item by admin
+      app.put('/item/edit/:id',ensureAuthenticated,(req,res)=>{
           var itemName= req.body.itemname;
           var itemPrice= req.body.itemprice;
           var ItemProvider= req.body.Itemprovider;
@@ -54,7 +55,7 @@ module.exports= function(app) {
       });
 
       //delete a item by admin from entire website
-      app.delete('/item/:id',(req,res)=>{
+      app.delete('/item/:id',ensureAuthenticated,(req,res)=>{
                 items.findOneAndRemove({_id:req.params.id})
                 .then(()=>{
                   req.flash('success_msg','item sucessfully deleted');

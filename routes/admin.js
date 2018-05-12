@@ -3,6 +3,7 @@ var items= require('../models/items');
 var cards= require('../models/cards');
 var bodyParser = require('body-parser');
 var auth= require('../helpers/auth');
+var {ensureAuthenticated}= require('../helpers/auth');
 
 
 
@@ -13,7 +14,9 @@ module.exports = function(app){
   // parse application/json
   app.use(bodyParser.json());
 
-  app.post('/items',(req,res)=>{
+
+  //add an item by admin to entire website
+  app.post('/items',ensureAuthenticated,(req,res)=>{
 
           var itemName= req.body.itemname;
           var itemPrice= req.body.itemprice;
@@ -51,28 +54,7 @@ module.exports = function(app){
 
   });
 
-  app.get('/admin/item',(req,res)=>{
-      items.find({})
-      .then((data)=>{
-        res.render('admin/item',{
-          data:data
-        });
-      });
 
-
-  });
-
-  app.get('/users/show/all',(req,res)=>{
-          users.find({isAdmin:false})
-          .then((data)=>{
-
-            res.render('admin/showuser',{
-              data:data
-            })
-          })
-
-
-  });
 
 
 

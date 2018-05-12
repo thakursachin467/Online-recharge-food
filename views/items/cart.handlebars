@@ -1,3 +1,5 @@
+
+
 <table  class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -8,8 +10,13 @@
 							<th style="width:10%"></th>
 						</tr>
 					</thead>
+          {{#if (conditional1 (total sessions.cart) 0)}}
+                <h1 class="text-center alert alert-danger">No item in Cart</h1>
+          {{/if}}
+
 {{#each sessions.cart}}
 					<tbody>
+
 						<tr>
 							<td data-th="Product">
 								<div class="row">
@@ -35,15 +42,28 @@
 						</tr>
 					</tbody>
           {{/each}}
-					<tfoot>
-						<tr >
+
+
+
+
+          <tfoot>
+            <tr >
               <td class="text-center"><strong>Total Items : {{totalitems sessions.cart}}</strong></td>
-						</tr>
-						<tr>
-							<td><a href="/items" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total &#8377;{{total sessions.cart}}</strong></td>
-							<td><a href="/Checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-						</tr>
-					</tfoot>
+            </tr>
+            <tr>
+              <td><a href="/items" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+              <td colspan="2" class="hidden-xs"></td>
+              <td class="hidden-xs text-center"><strong>Total &#8377;{{total sessions.cart}}</strong></td>
+                {{#if (conditional1 (total sessions.cart) 0)}}
+              <td><a href="/Checkout" class="btn btn-success btn-block disabled" >Checkout <i class="fa fa-angle-right"></i></a></td>
+              {{else}}
+              <td><a href="/Checkout" class="btn btn-success btn-block " >Checkout <i class="fa fa-angle-right"></i></a></td>
+
+                {{/if}}
+            </tr>
+          </tfoot>
+
+
+
+
 				</table>

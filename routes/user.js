@@ -1,18 +1,24 @@
 var users= require('../models/users');
 var items= require('../models/items');
 var cart= require('../models/cart');
+var orders= require('../models/orders')
 var complains= require('../models/complain');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 var Razorpay= require('razorpay');
 var auth= require('../helpers/auth');
+var {ensureAuthenticated}= require('../helpers/auth');
+const orderid = require('order-id')('mysecret');
 
 module.exports= function(app,passport){
   var instance = new Razorpay({
 key_id: 'rzp_test_c1MSR57qMelY4b',
 key_secret: '2qY31tri4Vt6g06J2r2MzOLO'
 })
-var totalorder;
+
+
+
+
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: false }));
   // parse application/json
@@ -28,12 +34,8 @@ var totalorder;
 
         });
 
-        app.get('/dashboard',(req,res)=>{
-            instance.payments.all()
-            .then((data)=>{
-              totalorder=data.count;
+        app.get('/dashboard',ensureAuthenticated,(req,res)=>{
 
-            })
           users.find({})
           .sort({'_id':-1})
           .then((data)=>{
@@ -49,9 +51,9 @@ var totalorder;
                   usersall:data,
                   itemsall:data1,
                   complain:complain,
-                  complaintotal:complain.length,
-                  totalorder:totalorder
+                  complaintotal:complain.length
                 });
+
                 cart.find({users:req.user._id})
                 .populate('items')
                 .then((data)=>{
@@ -59,9 +61,7 @@ var totalorder;
                   req.session.save(function(err) {
 
         });
-
-
-                });
+});
               });
 
             });
@@ -161,12 +161,12 @@ var totalorder;
 
 app.get('/logout',(req,res)=>{
       req.logout();
-    //  req.flash('success_msg','you are logout');
+     req.flash('success_msg','you are sucessfully logged out');
       res.redirect('/login');
 
 });
 
-app.get('/cart',(req,res)=>{
+app.get('/cart',ensureAuthenticated,(req,res)=>{
     res.render('items/cart');
 });
 
@@ -207,11 +207,13 @@ app.get('/cart/:id',(req,res)=>{
                         var quantity= req.body.quantity || 1;
                         var price=item.itemPrice;
                         var totalPrice= price*quantity;
+                        var OrderComplete= false;
                         var cartItem = new cart({
                           users:req.user._id,
                           items:productId,
                           totalPrice:totalPrice,
-                          quantity:quantity
+                          quantity:quantity,
+                          OrderComplete:OrderComplete
                         });
                         cartItem.save()
                         .then(()=>{
@@ -246,11 +248,11 @@ app.get('/cart/:id',(req,res)=>{
 
 
 
-app.get('/complain',(req,res)=>{
+app.get('/complain',ensureAuthenticated,(req,res)=>{
     res.render('users/complain');
 });
 
-app.post('/complain',(req,res)=>{
+app.post('/complain',ensureAuthenticated,(req,res)=>{
       var email=req.user.email;
       var firstname = req.user.firstname;
       var lastname=req.user.lastname;
@@ -276,27 +278,54 @@ app.post('/complain',(req,res)=>{
 });
 
 
-app.get('/checkout',(req,res)=>{
+app.get('/checkout',ensureAuthenticated,(req,res)=>{
 
+    if(req.session.cart.length==0){
+      req.flash('error_msg','Please add some items');
+        res.redirect('/items');
+    }
+    else {
+      res.render("items/checkout",{
+        key:instance.key_id
+      });
+    }
 
-
-
-
-    res.render("items/checkout",{
-      key:instance.key_id
-    });
 });
 
-app.post('/checkout',(req,res)=>{
+app.post('/checkout',ensureAuthenticated,(req,res)=>{
 
 
       instance.payments.capture(req.body.razorpay_payment_id, req.body.amount)
       .then((data)=>{
-      //  console.log(data);
+        cart.find({users:req.user._id})
+        .then((data)=>{
+          var OrderId=orderid.generate()
+          var order = new orders({
+            users:req.user._id,
+            date: Date.now(),
+            OrderId:OrderId
+
+          })
+          order.save();
+          req.session.cart="NULL";
+          req.session.save(function(err) {
+              res.redirect('/cart');
+            });
+
+
+        });
+
+
       })
       .catch((error)=>{
-        //console.log(error);
+        console.log(error);
       })
+
+});
+
+
+app.get('/orders/my',(req,res)=>{
+      res.render('users/order');
 
 });
 

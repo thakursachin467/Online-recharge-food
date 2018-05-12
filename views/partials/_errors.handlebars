@@ -9,16 +9,17 @@
 {{/if}}
 
 {{#if error}}
-
+<div class="alert alert-danger" role="alert">
   {{error}}
+</div>
 {{else}}
 
 {{/if}}
 
 
 {{#if error_msg}}
-<div class="alert alert-danger">
-  {{error_msg}}
+<div class="alert alert-danger" role="alert">
+  <strong>{{error_msg}}</strong>
 </div>
 {{else}}
 

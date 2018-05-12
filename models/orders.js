@@ -4,7 +4,7 @@ var items= require('./items');
 var Schema = mongoose.Schema;
 ObjectId=Schema.Types.ObjectId
 
-var cartSchema = new Schema ({
+var orderSchema = new Schema ({
 users:{
   type:String
 },
@@ -24,14 +24,10 @@ date :{
 },
 OrderId: {
   type: String
-},
-OrderComplete:{
-  type: Boolean
 }
 
 });
 
-var cart= mongoose.model('cart',cartSchema);
 
-
-module.exports = cart;
+var order= mongoose.model('order',orderSchema);
+module.exports = order;

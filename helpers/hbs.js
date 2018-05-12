@@ -16,14 +16,13 @@ formatdate:function(date,format) {
       //return local;
 },
 conditional: function(value1,value2){
-  
+
   if (value1 == value2) {
     return true;
 } else {
     return false;
 }
 },
-
 size: function(obj){
   var size = 0, key;
     for (key in obj) {
@@ -31,9 +30,17 @@ size: function(obj){
     }
     return size;
 },
-total: function(obj) {
+conditional1: function(obj) {
 
-        if(obj) {
+        if(obj==0) {
+          return true;
+        }
+        else {
+
+
+          return false;
+        }
+        /*if(obj) {
         var total= obj.reduce(function(prev,cur){
               return prev + cur.totalPrice;
         },0)
@@ -42,19 +49,46 @@ total: function(obj) {
       }
       else {
         return 0;
-      }
-
-
-
+      } */
 
 },
-totalitems: function(obj) {
+total: function(obj) {
 
+        if(obj=="NULL") {
+          return 0;
+        }
+        else {
+          var total= obj.reduce(function(prev,cur){
+                return prev + cur.totalPrice;
+          },0)
+
+          return total;
+        }
+        /*if(obj) {
         var total= obj.reduce(function(prev,cur){
-              return prev + cur.quantity;
+              return prev + cur.totalPrice;
         },0)
 
         return total;
+      }
+      else {
+        return 0;
+      } */
+
+},
+totalitems: function(obj) {
+  
+  if(obj=="NULL") {
+    return 0;
+  }
+  else {
+    var total= obj.reduce(function(prev,cur){
+          return prev + cur.quantity;
+    },0)
+
+    return total;
+  }
+
 
 
 
@@ -62,7 +96,18 @@ totalitems: function(obj) {
 },
 totalpay: function(obj) {
 
-        if(obj) {
+  if(obj=="NULL") {
+    return 0;
+  }
+  else {
+    var total= obj.reduce(function(prev,cur){
+          return prev + cur.totalPrice;
+    },0)
+
+    return total*100;
+  }
+
+      /*  if(obj) {
         var total= obj.reduce(function(prev,cur){
               return prev + cur.totalPrice;
         },0)
@@ -71,7 +116,7 @@ totalpay: function(obj) {
       }
       else {
         return 0;
-      }
+      } */
 
 
 
