@@ -24,6 +24,7 @@ conditional: function(value1,value2){
 }
 },
 size: function(obj){
+
   var size = 0, key;
     for (key in obj) {
         if (obj.hasOwnProperty(key)) size++;
@@ -54,7 +55,7 @@ conditional1: function(obj) {
 },
 total: function(obj) {
 
-        if(obj=="NULL") {
+        if(obj==null) {
           return 0;
         }
         else {
@@ -77,8 +78,8 @@ total: function(obj) {
 
 },
 totalitems: function(obj) {
-  
-  if(obj=="NULL") {
+
+  if(obj==null) {
     return 0;
   }
   else {
@@ -95,8 +96,8 @@ totalitems: function(obj) {
 
 },
 totalpay: function(obj) {
-
-  if(obj=="NULL") {
+  
+  if(obj==null) {
     return 0;
   }
   else {

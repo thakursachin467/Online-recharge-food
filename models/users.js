@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var items= require('./items');
+var carts= require('./cart');
 var Schema = mongoose.Schema;
 ObjectId=Schema.Types.ObjectId
 
@@ -18,9 +19,9 @@ var usersSchema = new Schema ({
       type:String,
       require:true
 },
-items:{
-  type:ObjectId,
-  ref:'items'
+cart:{
+  type: ObjectId,
+  ref: 'cart'
 },
 isAdmin :{
   type: Boolean,

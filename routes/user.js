@@ -44,25 +44,27 @@ key_secret: '2qY31tri4Vt6g06J2r2MzOLO'
               complains.find({})
               .sort({'_id':-1})
               .then((complain)=>{
-                res.render('users/dashboard',{
-                  users:data.slice(0,5),
-                  items:data1.length,
-                  userstotal:data.length,
-                  usersall:data,
-                  itemsall:data1,
-                  complain:complain,
-                  complaintotal:complain.length
-                });
-
                 cart.find({users:req.user._id})
                 .populate('items')
-                .then((data)=>{
-                  req.session.cart=data;
+                .then((carts)=>{
+
+                  req.session.cart=carts;
                   req.session.save(function(err) {
+                    res.render('users/dashboard',{
+                      users:data.slice(0,5),
+                      items:data1.length,
+                      userstotal:data.length,
+                      usersall:data,
+                      itemsall:data1,
+                      complain:complain,
+                      complaintotal:complain.length
 
         });
 });
               });
+                });
+
+
 
             });
           });
@@ -173,65 +175,75 @@ app.get('/cart',ensureAuthenticated,(req,res)=>{
 app.get('/cart/:id',(req,res)=>{
 
       var productId= req.params.id;
-      items.findById(productId,(err,item)=>{
-                  cart.findOne({items:productId})
-                    .then((data)=>{
-                      if(data){
-                        var Oldquantity= data.quantity;
-                        var adder= 1;
-                        var Newquantity= Oldquantity+adder;
-                        var price= item.itemPrice;
-                        var totalPrice= price * Newquantity;
-                        cart.findOneAndUpdate({items:productId},{
-                          quantity:Newquantity,
-                          totalPrice:totalPrice,
-                          users:req.user._id,
-                          items:productId
-                        })
-                        .then(()=>{
-                          cart.find({users:req.user._id})
-                          .populate('items')
-                          .then((data)=>{
-                            req.session.cart=data;
-                            req.session.save(function(err) {
-                                res.redirect('/items');
-                  });
+
+      cart.find({users:req.user._id})
+      .then((data)=>{
+
+        if(data) {
+          items.findById(productId,(err,item)=>{
+                      cart.findOne({items:productId})
+                        .then((data)=>{
+                          if(data){
+
+                            var user= req.user._id;
+                            var Oldquantity= data.quantity;
+                            var adder= 1;
+                            var Newquantity= Oldquantity+adder;
+                            var price= item.itemPrice;
+                            var totalPrice= price * Newquantity;
+                            var OrderComplete= false;
+                            cart.findOneAndUpdate({items:productId},{
+                              quantity:Newquantity,
+                              totalPrice:totalPrice,
+                              items:productId,
+                              OrderComplete:OrderComplete,
+                              users:user
+                            })
+                            .then(()=>{
+                              cart.find({users:req.user._id})
+                              .populate('items')
+                              .then((data)=>{
+                                req.session.cart=data;
+                                req.session.save(function(err) {
+                                    res.redirect('/items');
+                      });
 
 
-                          });
+                              });
 
-                        })
+                            })
 
-                      }
-                      else {
-                        var quantity= req.body.quantity || 1;
-                        var price=item.itemPrice;
-                        var totalPrice= price*quantity;
-                        var OrderComplete= false;
-                        var cartItem = new cart({
-                          users:req.user._id,
-                          items:productId,
-                          totalPrice:totalPrice,
-                          quantity:quantity,
-                          OrderComplete:OrderComplete
+                          }
+                          else {
+                            var user= req.user._id;
+                            var quantity= req.body.quantity || 1;
+                            var price=item.itemPrice;
+                            var totalPrice= price*quantity;
+                            var OrderComplete= false;
+                            var cartItem = new cart({
+                              items:productId,
+                              totalPrice:totalPrice,
+                              quantity:quantity,
+                              OrderComplete:OrderComplete,
+                              users:user
+                            });
+                            cartItem.save()
+                            .then(()=>{
+                              cart.find({users:req.user._id})
+                              .populate('items')
+                              .then((data)=>{
+                                req.session.cart=data;
+                                req.session.save(function(err) {
+                                    res.redirect('/items');
+                      });
+
+
+                              });
+
+                            })
+
+                          }
                         });
-                        cartItem.save()
-                        .then(()=>{
-                          cart.find({users:req.user._id})
-                          .populate('items')
-                          .then((data)=>{
-                            req.session.cart=data;
-                            req.session.save(function(err) {
-                                res.redirect('/items');
-                  });
-
-
-                          });
-
-                        })
-
-                      }
-                    });
 
 
 
@@ -239,14 +251,46 @@ app.get('/cart/:id',(req,res)=>{
 
 
 
+          });
+        }
+        else {
+
+          items.findById(productId,(err,item)=>{
+            if(item){
+            var adder= 1;
+            var Newquantity= adder;
+            var price= item.itemPrice;
+            var totalPrice= price * Newquantity;
+            var OrderComplete= false;
+            var cartItem = new cart({
+              users:req.user._id,
+              items:productId,
+              totalPrice:totalPrice,
+              quantity:Newquantity,
+              OrderComplete:OrderComplete
+            })
+            cartItem.save()
+            .then(()=>{
+              cart.find({users:req.user._id})
+              .populate('items')
+              .then((data)=>{
+                req.session.cart=data;
+                req.session.save(function(err) {
+                    res.redirect('/items');
       });
+              });
+            })
 
+          }
 
-
-
+        else {
+          console.log(err);
+        }
+});
+      }
 });
 
-
+});
 
 app.get('/complain',ensureAuthenticated,(req,res)=>{
     res.render('users/complain');
@@ -298,20 +342,10 @@ app.post('/checkout',ensureAuthenticated,(req,res)=>{
       instance.payments.capture(req.body.razorpay_payment_id, req.body.amount)
       .then((data)=>{
         cart.find({users:req.user._id})
-        .then((data)=>{
-          var OrderId=orderid.generate()
-          var order = new orders({
-            users:req.user._id,
-            date: Date.now(),
-            OrderId:OrderId
+        .then((data1)=>{
 
-          })
-          order.save();
-          req.session.cart="NULL";
-          req.session.save(function(err) {
-              res.redirect('/cart');
-            });
-
+            data1.remove();
+            req.session.cart="NULL";
 
         });
 

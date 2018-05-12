@@ -7,6 +7,7 @@ module.exports= function(app) {
 
       //show items here
       app.get('/items',(req,res)=>{
+        
           items.find({})
           .then((data)=>{
               res.render('items/show',{
@@ -66,7 +67,7 @@ module.exports= function(app) {
 
       //delete an item from cart
       app.delete('/items/:id',(req,res)=>{
-            cart.findOne({users:req.user._id})
+            cart.find({users:req.user._id})
             .then((data)=>{
                   if(data) {
                     cart.findOneAndRemove({items:req.params.id})
