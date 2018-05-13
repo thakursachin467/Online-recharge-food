@@ -47,7 +47,9 @@ key_secret: '2qY31tri4Vt6g06J2r2MzOLO'
                 cart.find({users:req.user._id})
                 .populate('items')
                 .then((carts)=>{
-
+                  orders.find({})
+                  .distinct("OrderId")
+                  .then((orderid)=>{
                   req.session.cart=carts;
                   req.session.save(function(err) {
                     res.render('users/dashboard',{
@@ -57,9 +59,11 @@ key_secret: '2qY31tri4Vt6g06J2r2MzOLO'
                       usersall:data,
                       itemsall:data1,
                       complain:complain,
-                      complaintotal:complain.length
+                      complaintotal:complain.length,
+                      orderid:orderid
 
         });
+      });
 });
               });
                 });
@@ -176,14 +180,16 @@ app.get('/cart/:id',(req,res)=>{
 
       var productId= req.params.id;
 
-      cart.find({users:req.user._id})
+      cart.findOne({users:req.user._id})
       .then((data)=>{
 
         if(data) {
+
           items.findById(productId,(err,item)=>{
-                      cart.findOne({items:productId})
-                          .where(users).equals(req.user._id)
+                      cart.findOne({users:req.user._id})
+                          .where("items").equals(productId)
                         .then((data)=>{
+
                           if(data){
 
                             var user= req.user._id;
@@ -193,7 +199,7 @@ app.get('/cart/:id',(req,res)=>{
                             var price= item.itemPrice;
                             var totalPrice= price * Newquantity;
                             var OrderComplete= false;
-                            cart.findOneAndUpdate({items:productId},{
+                            cart.updateOne({_id:data._id},{
                               quantity:Newquantity,
                               totalPrice:totalPrice,
                               items:productId,
@@ -216,6 +222,7 @@ app.get('/cart/:id',(req,res)=>{
 
                           }
                           else {
+
                             var user= req.user._id;
                             var quantity= req.body.quantity || 1;
                             var price=item.itemPrice;
@@ -326,14 +333,30 @@ app.get('/checkout',ensureAuthenticated,(req,res)=>{
 
 app.post('/checkout',ensureAuthenticated,(req,res)=>{
 
-
+        const id = orderid.generate()
       instance.payments.capture(req.body.razorpay_payment_id, req.body.amount)
       .then((data)=>{
         cart.find({users:req.user._id})
         .then((data1)=>{
 
-            data1.remove();
-            req.session.cart="NULL";
+
+            data1.forEach((cart,index)=>{
+                  var order = new orders({
+                      users:cart.users,
+                      items:cart.items,
+                      quantity:cart.quantity,
+                      totalPrice:cart.totalPrice,
+                      OrderId:id,
+                      grandTotal:req.body.amount
+                  })
+                  order.save()
+                  .then(()=>{
+                      req.session.cart=null;
+                      cart.remove({_id:cart._id});
+                  });
+            });
+
+
 
         });
 
@@ -347,10 +370,50 @@ app.post('/checkout',ensureAuthenticated,(req,res)=>{
 
 
 app.get('/orders/my',(req,res)=>{
-      res.render('users/order');
+  var orderid;
+  Promise.all([orders.find({users:req.user._id})
+    .distinct("OrderId")
+  , orders.find({users:req.user._id})
+  ])
+  .then((data1)=>{
+
+          res.render('users/order',{
+              ordersDetails:data1[1],
+              orderNumber:data1[0]
+
+          });
+  });
+
+
+
 
 });
 
+app.get('/bill/:id',(req,res)=>{
+
+      orders.find({OrderId:req.params.id})
+      .populate('items')
+      .then((data)=>{
+        res.render('users/details',{
+          data:data,
+          OrderId:req.params.id
+        })
+      });
+});
+
+app.get('/admin/orders',(req,res)=>{
+        orders.find({})
+        .populate('items')
+        .then((data)=>{
+
+            res.render('admin/allorders',{
+              data:data,
+
+
+          });
+
+        })
+})
 
 
 }

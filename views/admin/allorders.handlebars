@@ -1,7 +1,7 @@
 
 <div class="container "><br>
   <div class="panel-heading main-color-bg pl-3 pt-3 pb-3">
-    <h3 ><i class="fa fa-cubes" style="font-size:36px"></i> Your Orders</h3>
+    <h3 ><i class="fa fa-cubes" style="font-size:36px"></i> All Orders</h3>
   </div>
   <div class="panel panel-default mt-3">
     <div class="panel-heading">
@@ -22,7 +22,7 @@
           <tr>
 
 
-{{#each ordersDetails}}
+{{#each data}}
           <tr>
             <td>{{OrderId}}</td>
             <td>{{conversion grandTotal}}</td>
@@ -37,15 +37,15 @@
     </div>
   </div>
 
-  <script type="text/javascript">
-  var seen = {};
- $('table tr').each(function() {
-  var txt = $(this).text();
-  if (seen[txt])
-    $(this).remove();
-  else
-    seen[txt] = true;
- });
-  </script>
+ <script type="text/javascript">
+ var seen = {};
+$('table tr').each(function() {
+ var txt = $(this).text();
+ if (seen[txt])
+   $(this).remove();
+ else
+   seen[txt] = true;
+});
+</script>
 
 </div>

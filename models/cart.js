@@ -17,16 +17,6 @@ quantity:{
 },
 totalPrice:{
   type: Number
-},
-date :{
-  type: Date,
-
-},
-OrderId: {
-  type: String
-},
-OrderComplete:{
-  type: Boolean
 }
 
 });

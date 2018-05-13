@@ -7,12 +7,21 @@ module.exports= function(app) {
 
       //show items here
       app.get('/items',(req,res)=>{
-        
+
           items.find({})
           .then((data)=>{
-              res.render('items/show',{
-                data:data
-              });
+            cart.find({users:req.user._id})
+            .populate('items')
+            .then((carts)=>{
+
+              req.session.cart=carts;
+              req.session.save(function(err) {
+                res.render('items/show',{
+                  data:data
+                });
+});
+          });
+
           });
 
       });

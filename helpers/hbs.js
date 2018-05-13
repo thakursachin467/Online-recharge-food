@@ -31,6 +31,10 @@ size: function(obj){
     }
     return size;
 },
+conversion: function(value){
+
+  return value/100;
+},
 conditional1: function(obj) {
 
         if(obj==0) {
@@ -96,7 +100,7 @@ totalitems: function(obj) {
 
 },
 totalpay: function(obj) {
-  
+
   if(obj==null) {
     return 0;
   }

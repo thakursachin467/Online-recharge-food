@@ -20,10 +20,14 @@ totalPrice:{
 },
 date :{
   type: Date,
+  default: Date.now()
 
 },
 OrderId: {
   type: String
+},
+grandTotal: {
+  type : Number
 }
 
 });
