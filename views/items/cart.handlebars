@@ -1,6 +1,10 @@
 
 
 <table  class="table table-hover table-condensed">
+  {{#if (conditional1 (total sessions.cart) 0)}}
+        <h1 class="text-center alert alert-danger">No item in Cart</h1>
+        <td><a href="/items" class="btn btn-warning"><i class="fa fa-angle-left"></i> Shop Here</a></td>
+        {{else}}
     				<thead>
 						<tr>
 							<th style="width:50%">Product</th>
@@ -10,9 +14,8 @@
 							<th style="width:10%"></th>
 						</tr>
 					</thead>
-          {{#if (conditional1 (total sessions.cart) 0)}}
-                <h1 class="text-center alert alert-danger">No item in Cart</h1>
-          {{/if}}
+
+
 
 {{#each sessions.cart}}
 					<tbody>
@@ -63,7 +66,7 @@
             </tr>
           </tfoot>
 
-
+{{/if}}
 
 
 				</table>
