@@ -9,3 +9,16 @@ patch:
   'npm:stringstream:20180511':
     - razorpay > request > stringstream:
         patched: '2019-06-16T20:16:18.728Z'
+  SNYK-JS-LODASH-450202:
+    - snyk > lodash:
+        patched: '2019-07-04T03:16:22.886Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-04T03:16:22.886Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-04T03:16:22.886Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-04T03:16:22.886Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-04T03:16:22.886Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-04T03:16:22.886Z'
