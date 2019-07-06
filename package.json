@@ -28,7 +28,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "razorpay": "^1.7.1",
-    "snyk": "^1.179.0"
+    "snyk": "^1.189.0"
   },
   "snyk": true
 }
