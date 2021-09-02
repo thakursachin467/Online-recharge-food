@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepare": "npm run snyk-protect"
   },
   "author": "Sachin Thakur",
@@ -21,14 +21,14 @@
     "express-session": "^1.15.6",
     "method-override": "^2.3.10",
     "moment": "^2.22.1",
-    "mongoose": "^5.7.5",
+    "mongoose": "^6.0.4",
     "order-id": "^1.1.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "razorpay": "^1.7.1",
-    "snyk": "^1.258.2"
+    "@snyk/protect": "latest"
   },
   "snyk": true
 }
