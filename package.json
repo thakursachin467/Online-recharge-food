@@ -23,7 +23,7 @@
     "moment": "^2.22.1",
     "mongoose": "^5.7.5",
     "order-id": "^1.1.0",
-    "passport": "^0.4.0",
+    "passport": "^0.6.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
