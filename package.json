@@ -21,7 +21,7 @@
     "express-session": "^1.15.6",
     "method-override": "^2.3.10",
     "moment": "^2.22.1",
-    "mongoose": "^5.7.5",
+    "mongoose": "^6.4.6",
     "order-id": "^1.1.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
