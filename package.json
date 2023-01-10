@@ -19,7 +19,7 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
-    "method-override": "^2.3.10",
+    "method-override": "^3.0.0",
     "moment": "^2.22.1",
     "mongoose": "^5.7.5",
     "order-id": "^1.1.0",
@@ -28,7 +28,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "razorpay": "^1.7.1",
-    "snyk": "^1.258.2"
+    "snyk": "^1.518.0"
   },
   "snyk": true
 }
